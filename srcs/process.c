@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:43:24 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/04 17:20:07 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:40:03 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	ft_initialize_struct(t_data *data, char **av)
 
 void	first_child(t_data data, char **envp)
 {
-	close(data.pfd[1]);
-	dup2(data.pfd[0], STDIN_FILENO);
 	dup2(data.f1, STDIN_FILENO);
+	dup2(data.pfd[1], STDOUT_FILENO);
 	close(data.pfd[0]);
+	close(data.pfd[1]);
 	data.path_cmd1 = get_cmd_path(data.cmd1[0], envp);
 	if (execve(data.path_cmd1, data.cmd1, NULL) == -1)
 		ft_error();
@@ -37,9 +37,9 @@ void	first_child(t_data data, char **envp)
 
 void	second_child(t_data data, char **envp)
 {
-	close(data.pfd[0]);
-	dup2(data.pfd[1], STDOUT_FILENO);
+	dup2(data.pfd[0], STDIN_FILENO);
 	dup2(data.f2, STDOUT_FILENO);
+	close(data.pfd[0]);
 	close(data.pfd[1]);
 	data.path_cmd2 = get_cmd_path(data.cmd2[0], envp);
 	if (execve(data.path_cmd2, data.cmd2, NULL) == -1)
