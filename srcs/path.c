@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:24:40 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/04 17:19:55 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:47:45 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ char	**find_and_split_path(char **envp)
 
 	if (!envp)
 		return (NULL);
-	i = -1;
-	while (envp[++i])
+	i = 0;
+	while (envp[i])
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5))
 		{
 			env_path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 			break ;
 		}
+		i++;
 	}
 	paths = ft_split(env_path, ':');
 	return (paths);
@@ -56,20 +57,29 @@ char	*get_cmd_path(char *cmd, char **envp)
 	if (!cmd)
 		return (NULL);
 	paths = find_and_split_path(envp);
-	i = -1;
-	while (paths[++i])
+	i = 0;
+	while (paths[i])
 	{
 		if (ft_is_path(cmd) == 1)
 			return (cmd);
 		paths[i] = ft_strjoin(paths[i], "/");
+		i++;
 	}
-	i = -1;
-	while (paths[++i])
+	i = 0;
+	while (paths[i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
 		free (cmd_path);
+		i++;
 	}
 	return (NULL);
+}
+
+char	**secure_cmd(char *str)
+{
+	if (!str)
+		return (NULL);
+	return (ft_split(str, ' '));
 }

@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:57:21 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/04 11:58:10 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:59:21 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_data
 	char	*path_cmd1;
 	char	*path_cmd2;
 	int		status;
+	int		execv_cmd1;
+	int		execv_cmd2;
 }				t_data;
 
 char	**ft_split(char const *s, char c);
