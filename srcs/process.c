@@ -6,26 +6,30 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:43:24 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/07 15:53:42 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:32:16 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
 void	check_error(int res)
 {
 	if (res == -1)
-		ft_error();
+	{
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+		exit(EXIT_FAILURE);
+	}
 }
+
 void	ft_initialize_struct(t_data *data, char **av)
 {
 	data->cmd1 = secure_cmd(av[2]);
 	data->cmd2 = secure_cmd(av[3]);
 	data->f1 = open(av[1], O_RDONLY);
-	if (data->f1 == -1)
-		ft_error();
+	check_error(data->f1);
 	data->f2 = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (data->f2 == -1)
-		ft_error();
+	check_error(data->f2);
 }
 
 void	first_child(t_data data, char **envp)
@@ -35,9 +39,8 @@ void	first_child(t_data data, char **envp)
 	check_error(close(data.pfd[0]));
 	check_error(close(data.pfd[1]));
 	data.path_cmd1 = get_cmd_path(data.cmd1[0], envp);
-	data.execv_cmd1 = execve(data.path_cmd1, data.cmd1, NULL);
-	if (data.execv_cmd1 == -1)
-		ft_error();
+	ft_cmd_not_exist(data.path_cmd1, data.cmd1);
+	check_error(execve(data.path_cmd1, data.cmd1, NULL));
 }
 
 void	second_child(t_data data, char **envp)
@@ -47,17 +50,26 @@ void	second_child(t_data data, char **envp)
 	check_error(close(data.pfd[0]));
 	check_error(close(data.pfd[1]));
 	data.path_cmd2 = get_cmd_path(data.cmd2[0], envp);
-	data.execv_cmd2 = execve(data.path_cmd2, data.cmd2, NULL);
-	if (data.execv_cmd2 == -1)
-		ft_error();
+	ft_cmd_not_exist(data.path_cmd2, data.cmd2);
+	check_error(execve(data.path_cmd2, data.cmd2, NULL));
 }
 
 void	parent_process(t_data data)
 {
+	int	i;
+
 	check_error(close(data.pfd[0]));
 	check_error(close(data.pfd[1]));
 	check_error(close(data.f1));
 	check_error(close(data.f2));
 	check_error(waitpid(data.pid, &data.status, 0));
 	check_error(waitpid(data.pid2, &data.status, 0));
+	i = -1;
+	while (data.cmd1[++i])
+		free (data.cmd1[i]);
+	free (data.cmd1);
+	i = -1;
+	while (data.cmd2[++i])
+		free(data.cmd2[i]);
+	free(data.cmd2);
 }

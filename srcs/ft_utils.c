@@ -6,18 +6,11 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:11:21 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/09/30 10:13:40 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 13:55:42 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-void	ft_error(void)
-{
-	write(2, strerror(errno), ft_strlen(strerror(errno)));
-	write(2, "\n", 1);
-	exit(EXIT_FAILURE);
-}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -87,4 +80,31 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

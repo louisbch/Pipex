@@ -6,7 +6,7 @@
 #    By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 16:27:15 by lbouchon          #+#    #+#              #
-#    Updated: 2022/09/30 11:35:08 by lbouchon         ###   ########.fr        #
+#    Updated: 2022/10/10 14:09:04 by lbouchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRCS = $(DIR)process.c		\
 		$(DIR)path.c 		\
 		$(DIR)main.c		\
 		$(DIR)ft_split.c	\
-		$(DIR)ft_strjoin.c	\
 		$(DIR)ft_utils.c	\
 
 OBJS = ${SRCS:.c=.o}

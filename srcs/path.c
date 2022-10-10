@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:24:40 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/10 12:51:32 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:33:11 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ char	**find_and_split_path(char **envp)
 		i++;
 	}
 	paths = ft_split(env_path, ':');
+	if (env_path)
+		free(env_path);
 	return (paths);
-	free(env_path);
 }
 
 int	ft_is_path(char *cmd)
@@ -55,24 +56,22 @@ char	*get_cmd_path(char *cmd, char **envp)
 	int		i;
 
 	if (!cmd)
-		ft_error();
+		return (NULL);
 	paths = find_and_split_path(envp);
-	i = 0;
-	while (paths[i])
+	i = -1;
+	while (paths[++i])
 	{
 		if (ft_is_path(cmd) == 1)
 			return (cmd);
 		paths[i] = ft_strjoin(paths[i], "/");
-		i++;
 	}
-	i = 0;
-	while (paths[i])
+	i = -1;
+	while (paths[++i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 			return (cmd_path);
 		free (cmd_path);
-		i++;
 	}
 	return (NULL);
 }
@@ -82,4 +81,22 @@ char	**secure_cmd(char *str)
 	if (!str)
 		return (NULL);
 	return (ft_split(str, ' '));
+}
+
+void	ft_cmd_not_exist(char *path_cmd, char **cmd)
+{
+	if (!path_cmd)
+	{
+		write(2, "Command not found: ", 19);
+		if (!cmd[0])
+		{
+			write(2, " ", 1);
+		}
+		else
+		{
+			write(2, cmd[0], ft_strlen(cmd[0]));
+			write(2, "\n", 1);
+		}
+	}
+	exit (1);
 }

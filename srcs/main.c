@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:09:33 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/10 12:55:52 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:24:10 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 5)
 	{
 		ft_initialize_struct(&data, av);
-		if (pipe(data.pfd) == -1)
-			ft_error();
+		check_error(pipe(data.pfd));
 		data.pid = fork();
-		if (data.pid < 0)
-			ft_error();
+		check_error(data.pid);
 		if (data.pid == 0)
 			first_child(data, envp);
 		else
 		{
 			data.pid2 = fork();
-			if (data.pid2 < 0)
-				ft_error();
+			check_error(data.pid2);
 			if (data.pid2 == 0)
 				second_child(data, envp);
 			parent_process(data);
@@ -38,4 +35,5 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 		write(2, "Try like this : ./pipex infile cmd1 cmd2 outfile", 71);
+	return (0);
 }

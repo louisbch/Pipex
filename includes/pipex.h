@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:57:21 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/07 13:59:21 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:13:01 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	pipex(t_data data, char **av);
 void	first_child(t_data data, char **av);
 void	second_child(t_data data, char **av);
 void	parent_process(t_data data);
-void	ft_error(void);
 void	ft_initialize_struct(t_data *data, char **av);
 char	**secure_cmd(char *str);
 int		ft_is_path(char *cmd);
+void	check_error(int res);
+void	ft_cmd_not_exist(char *path_cmd, char **cmd);
 
 #endif
