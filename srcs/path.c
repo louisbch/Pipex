@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:24:40 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/10 16:33:11 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:35:30 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,8 @@ void	ft_cmd_not_exist(char *path_cmd, char **cmd)
 			write(2, " ", 1);
 		}
 		else
-		{
 			write(2, cmd[0], ft_strlen(cmd[0]));
-			write(2, "\n", 1);
-		}
+		write(2, "\n", 1);
 	}
 	exit (1);
 }
