@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:24:40 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/07 15:47:45 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:51:32 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_cmd_path(char *cmd, char **envp)
 	int		i;
 
 	if (!cmd)
-		return (NULL);
+		ft_error();
 	paths = find_and_split_path(envp);
 	i = 0;
 	while (paths[i])
