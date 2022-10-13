@@ -6,7 +6,7 @@
 #    By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 16:27:15 by lbouchon          #+#    #+#              #
-#    Updated: 2022/10/10 14:09:04 by lbouchon         ###   ########.fr        #
+#    Updated: 2022/10/13 11:12:40 by lbouchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,12 @@ all : ${NAME}
 
 ${NAME} : ${OBJS}
 		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-		@echo "\033[0;42mPipex is now compile !"
+		@echo "\033[0;42mPipex is now compile !\033[0m"
 
 clean :
-		@echo "\033[9;31m"
 		${RM} ${OBJS}
 
 fclean : clean
-	@echo "\033[9;31m"
 	${RM} ${NAME}
 
 re : fclean all
@@ -46,7 +44,6 @@ re : fclean all
 		${CC} ${FLAGS} -o $@ -c $<
 
 norm :
-		@echo "\033[1;34m"
 		${NORMINETTE}
 
 .PHONY: all clean fclean re norm

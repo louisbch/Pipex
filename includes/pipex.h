@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:57:21 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/10 15:13:01 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:39:25 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ typedef struct s_data
 	char	*path_cmd1;
 	char	*path_cmd2;
 	int		status;
-	int		execv_cmd1;
-	int		execv_cmd2;
 }				t_data;
 
 char	**ft_split(char const *s, char c);
@@ -52,6 +50,7 @@ void	ft_initialize_struct(t_data *data, char **av);
 char	**secure_cmd(char *str);
 int		ft_is_path(char *cmd);
 void	check_error(int res);
-void	ft_cmd_not_exist(char *path_cmd, char **cmd);
+int		ft_cmd_not_exist(char *path_cmd, char **cmd);
+void	ft_putchar(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:24:40 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/10 16:35:30 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:34:32 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,7 @@ char	*get_cmd_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-char	**secure_cmd(char *str)
+void	ft_putchar(char c)
 {
-	if (!str)
-		return (NULL);
-	return (ft_split(str, ' '));
-}
-
-void	ft_cmd_not_exist(char *path_cmd, char **cmd)
-{
-	if (!path_cmd)
-	{
-		write(2, "Command not found: ", 19);
-		if (!cmd[0])
-		{
-			write(2, " ", 1);
-		}
-		else
-			write(2, cmd[0], ft_strlen(cmd[0]));
-		write(2, "\n", 1);
-	}
-	exit (1);
+	write(1, &c, 1);
 }
