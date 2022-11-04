@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:09:33 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/13 15:36:24 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:31:32 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_free_strs(char **strs, char *str)
 		{
 			free(strs[i]);
 			strs[i] = NULL;
+			i++;
 		}
 		free(strs);
 		strs = NULL;
@@ -107,5 +108,6 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 		write(2, "Try like this : ./pipex infile cmd1 cmd2 outfile\n", 49);
+	system("leaks pipex");
 	return (0);
 }

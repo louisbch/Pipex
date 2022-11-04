@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:43:24 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/13 11:42:01 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:11:02 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	second_child(t_data data, char **envp)
 
 void	parent_process(t_data data)
 {
-	int	i;
-
 	check_error(close(data.pfd[0]));
 	check_error(close(data.pfd[1]));
 	check_error(close(data.f1));

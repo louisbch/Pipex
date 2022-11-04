@@ -6,7 +6,7 @@
 /*   By: lbouchon <lbouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:57:21 by lbouchon          #+#    #+#             */
-/*   Updated: 2022/10/13 11:39:25 by lbouchon         ###   ########.fr       */
+/*   Updated: 2022/11/04 13:08:59 by lbouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int		ft_is_path(char *cmd);
 void	check_error(int res);
 int		ft_cmd_not_exist(char *path_cmd, char **cmd);
 void	ft_putchar(char c);
+void	ft_free_strs(char **strs, char *str);
 
 #endif
